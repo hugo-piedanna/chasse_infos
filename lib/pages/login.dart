@@ -27,16 +27,18 @@ class _LoginPageState extends State<login> {
               const SizedBox(
                 height: 90,
               ),
-              Center(
-                child: Image.asset(
-                  'images/icon-foret.png',
-                  scale: 3,
+              Expanded(
+                child: Center(
+                  child: Image.asset(
+                    'images/icon-foret.png',
+                    scale: 3,
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 65,
               ),
-              Expanded(
+              Container(
                   child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
