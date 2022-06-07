@@ -1,3 +1,4 @@
+import 'package:chasse_infos/index.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -70,7 +71,13 @@ class _LoginPageState extends State<login> {
                           height: 40,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const acceuil()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(300, 100),
                             onPrimary: HexColor('#faf3dd'),
