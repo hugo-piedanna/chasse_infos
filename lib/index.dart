@@ -17,6 +17,8 @@ class acceuil extends StatefulWidget {
 class _acceuilPageState extends State<acceuil> {
   int index = 2;
 
+  final PageController _pageController = PageController(initialPage: 2);
+
   final screens = [
     scanAnimals(),
     graph(),
@@ -47,21 +49,25 @@ class _acceuilPageState extends State<acceuil> {
                     colors: [Color(0xff4a7c59), Color(0xff52896e)])),
             child: Scaffold(
               extendBody: true,
-              body: screens[index],
+              body: PageView(
+                controller: _pageController,
+                onPageChanged: (newIndex) => setState(() => index = newIndex),
+                scrollDirection: Axis.horizontal,
+                children: screens,
+              ),
               backgroundColor: Colors.transparent,
               bottomNavigationBar: Theme(
                 data: Theme.of(this.context).copyWith(
                     iconTheme: const IconThemeData(color: Color(0xfffaf3dd))),
                 child: CurvedNavigationBar(
-                  backgroundColor: Colors.transparent,
-                  color: const Color(0xff8fc0a9),
-                  height: 65,
-                  animationCurve: Curves.easeInOutCirc,
-                  animationDuration: const Duration(milliseconds: 300),
-                  items: items,
-                  index: index,
-                  onTap: (index) => setState(() => this.index = index),
-                ),
+                    backgroundColor: Colors.transparent,
+                    color: const Color(0xff8fc0a9),
+                    height: 50,
+                    animationCurve: Curves.easeInOutCirc,
+                    animationDuration: const Duration(milliseconds: 300),
+                    items: items,
+                    index: index,
+                    onTap: (index) => _pageController.jumpToPage(index)),
               ),
             ),
           ),
