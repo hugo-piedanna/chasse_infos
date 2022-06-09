@@ -49,11 +49,22 @@ class _acceuilPageState extends State<acceuil> {
                     colors: [Color(0xff4a7c59), Color(0xff52896e)])),
             child: Scaffold(
               extendBody: true,
-              body: PageView(
-                controller: _pageController,
-                onPageChanged: (newIndex) => setState(() => index = newIndex),
-                scrollDirection: Axis.horizontal,
-                children: screens,
+              body: WillPopScope(
+                onWillPop: () async => false,
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (newIndex) => setState(() => index = newIndex),
+                  scrollDirection: Axis.horizontal,
+                  children: screens,
+                ),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.miniEndTop,
+              floatingActionButton: FloatingActionButton(
+                onPressed: (() {}),
+                backgroundColor: const Color(0xff8fc0a9),
+                foregroundColor: const Color(0xfffaf3dd),
+                child: const Icon(Icons.settings),
               ),
               backgroundColor: Colors.transparent,
               bottomNavigationBar: Theme(
