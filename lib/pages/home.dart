@@ -120,6 +120,137 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                         const TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
                   ),
                 ),
+                const SizedBox(height: 40),
+                Container(
+                  width: 300,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: HexColor('#68B0AB'),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Bienvenue",
+                          style: TextStyle(
+                              color: Color(0xfffaf3dd),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Cette application propose plusieurs fonctionnalitées qui vous sont décrites plus en détailles plus bas",
+                          style:
+                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
+                        )
+                      ]),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 300,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: HexColor('#68B0AB'),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Scanner",
+                          style: TextStyle(
+                              color: Color(0xfffaf3dd),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Prenez en photo un animal pour avoir la taille, le poids*, l'espèce et le descriptif de l'animal.\n*Les données sont des approximations",
+                          style:
+                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
+                        )
+                      ]),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 300,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: HexColor('#68B0AB'),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Analytique",
+                          style: TextStyle(
+                              color: Color(0xfffaf3dd),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Retrouvez toutes vos statistiques, le nombre de cartouches utilisées, le temps passé à la chasse, le nombre d'animaux morts ...",
+                          style:
+                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
+                        )
+                      ]),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 300,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: HexColor('#68B0AB'),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Points de chasse",
+                          style: TextStyle(
+                              color: Color(0xfffaf3dd),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Trouvez les informations relatives à vos points de chasse favoris, comme les prévisions météo, les dates d'ouvertures",
+                          style:
+                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
+                        )
+                      ]),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 300,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: HexColor('#68B0AB'),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Carte",
+                          style: TextStyle(
+                              color: Color(0xfffaf3dd),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Notre carte vous permet de retrouver les parkings, les pièges possés, votre emplacement, les miradors, la délimitation de votre zone et plus",
+                          style:
+                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
+                        )
+                      ]),
+                ),
+                const SizedBox(height: 70)
               ],
             ),
           ),

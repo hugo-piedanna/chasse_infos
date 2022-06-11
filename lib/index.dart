@@ -56,7 +56,6 @@ class _acceuilPageState extends State<acceuil> {
                 onWillPop: () async => false,
                 child: PageView(
                   controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (newIndex) => setState(() => index = newIndex),
                   scrollDirection: Axis.horizontal,
                   children: screens,
