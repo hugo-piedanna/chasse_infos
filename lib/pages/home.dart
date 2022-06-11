@@ -122,7 +122,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                 ),
                 const SizedBox(height: 40),
                 Container(
-                  width: 300,
+                  width: 350,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: HexColor('#68B0AB'),
@@ -140,7 +140,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "Cette application propose plusieurs fonctionnalitées qui vous sont décrites plus en détailles plus bas",
+                          "Cette application propose plusieurs fonctionnalitées. Vous pouvez commencer par vos enregistrer dans les paramètres",
                           style:
                               TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
                         )
@@ -148,7 +148,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: 300,
+                  width: 350,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: HexColor('#68B0AB'),
@@ -174,7 +174,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: 300,
+                  width: 350,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: HexColor('#68B0AB'),
@@ -200,7 +200,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: 300,
+                  width: 350,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: HexColor('#68B0AB'),
@@ -226,7 +226,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  width: 300,
+                  width: 350,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: HexColor('#68B0AB'),
