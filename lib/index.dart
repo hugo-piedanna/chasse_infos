@@ -37,9 +37,12 @@ class _acceuilPageState extends State<acceuil> {
       const Icon(Icons.map, size: 30),
     ];
     return Container(
-      color: const Color(0xff8fc0a9),
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xff4a7c59), Color(0xff8fc0a9)])),
       child: SafeArea(
-        top: false,
         child: ClipRect(
           child: Container(
             decoration: const BoxDecoration(
@@ -53,6 +56,7 @@ class _acceuilPageState extends State<acceuil> {
                 onWillPop: () async => false,
                 child: PageView(
                   controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (newIndex) => setState(() => index = newIndex),
                   scrollDirection: Axis.horizontal,
                   children: screens,
