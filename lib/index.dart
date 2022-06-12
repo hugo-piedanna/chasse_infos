@@ -2,6 +2,7 @@ import 'package:chasse_infos/pages/graph.dart';
 import 'package:chasse_infos/pages/home.dart';
 import 'package:chasse_infos/pages/listHuntPoint.dart';
 import 'package:chasse_infos/pages/map.dart';
+import 'package:chasse_infos/pages/profil.dart';
 import 'package:chasse_infos/pages/scanAnimals.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -64,10 +65,15 @@ class _acceuilPageState extends State<acceuil> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.miniEndTop,
               floatingActionButton: FloatingActionButton(
-                onPressed: (() {}),
+                onPressed: () {
+                  Navigator.push(
+                    this.context,
+                    MaterialPageRoute(builder: (context) => const profil()),
+                  );
+                },
                 backgroundColor: const Color(0xff8fc0a9),
                 foregroundColor: const Color(0xfffaf3dd),
-                child: const Icon(Icons.settings),
+                child: const Icon(Icons.person),
               ),
               backgroundColor: Colors.transparent,
               bottomNavigationBar: Theme(
