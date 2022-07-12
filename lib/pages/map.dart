@@ -24,8 +24,8 @@ class _mapView extends State<map> with AutomaticKeepAliveClientMixin<map> {
           child: Flexible(
             child: FlutterMap(
               options: MapOptions(
-                center: LatLng(51.5, -0.09),
-                zoom: 15.0,
+                center: LatLng(43.40676081436447, 4.988552087050192),
+                zoom: 12.0,
               ),
               layers: [
                 TileLayerOptions(
@@ -33,12 +33,6 @@ class _mapView extends State<map> with AutomaticKeepAliveClientMixin<map> {
                       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   subdomains: ['a', 'b', 'c'],
                   tileProvider: const NonCachingNetworkTileProvider(),
-                ),
-              ],
-              nonRotatedChildren: [
-                AttributionWidget.defaultWidget(
-                  source: 'OpenStreetMap contributors',
-                  onSourceTapped: () {},
                 ),
               ],
             ),
@@ -49,6 +43,5 @@ class _mapView extends State<map> with AutomaticKeepAliveClientMixin<map> {
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
