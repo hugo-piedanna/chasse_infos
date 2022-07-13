@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:open_mail_app/open_mail_app.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -140,7 +141,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "Cette application propose plusieurs fonctionnalitées. Vous pouvez commencer par vos enregistrer dans les paramètres",
+                          "Cette application propose plusieurs fonctionnalitées. Vous pouvez commencer par vous enregistrer dans les paramètres",
                           style:
                               TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
                         )
@@ -156,98 +157,46 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Scanner",
+                      children: [
+                        const Text(
+                          "Contacte",
                           style: TextStyle(
                               color: Color(0xfffaf3dd),
                               fontSize: 25,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Prenez en photo un animal pour avoir la taille, le poids*, l'espèce et le descriptif de l'animal.\n*Les données sont des approximations",
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Pour toutes questions ou demandes relatives à l'application vous pouvez contacter le développeur",
                           style:
                               TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
-                        )
-                      ]),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 350,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      color: HexColor('#68B0AB'),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Analytique",
-                          style: TextStyle(
-                              color: Color(0xfffaf3dd),
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Retrouvez toutes vos statistiques, le nombre de cartouches utilisées, le temps passé à la chasse, le nombre d'animaux morts ...",
-                          style:
-                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
-                        )
-                      ]),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 350,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      color: HexColor('#68B0AB'),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Points de chasse",
-                          style: TextStyle(
-                              color: Color(0xfffaf3dd),
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
+                        TextButton(
+                          child: const Text("Envoyer un mail",
+                              style: TextStyle(
+                                  fontSize: 20, color: Color(0xffC8D5B9))),
+                          onPressed: () async {
+                            var apps = await OpenMailApp.getMailApps();
+
+                            if (apps.isEmpty) {
+                              showNoMailAppsDialog(context);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return MailAppPickerDialog(
+                                    mailApps: apps,
+                                    emailContent: EmailContent(
+                                      to: [
+                                        'h.piedanna@gmail.com',
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Trouvez les informations relatives à vos points de chasse favoris, comme les prévisions météo, les dates d'ouvertures",
-                          style:
-                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
-                        )
-                      ]),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 350,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      color: HexColor('#68B0AB'),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Carte",
-                          style: TextStyle(
-                              color: Color(0xfffaf3dd),
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Notre carte vous permet de retrouver les parkings, les pièges possés, votre emplacement, les miradors, la délimitation de votre zone et plus",
-                          style:
-                              TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
-                        )
                       ]),
                 ),
                 const SizedBox(height: 70)
@@ -262,4 +211,24 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  void showNoMailAppsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Open Mail App"),
+          content: Text("No mail apps installed"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 }
