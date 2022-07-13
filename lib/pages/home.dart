@@ -63,7 +63,7 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
             content: const Text('Temps enregistré'),
             backgroundColor: const Color(0xff4a7c59),
             action: SnackBarAction(
-                label: 'OK',
+                label: 'Compris',
                 onPressed: Scaffold.of(context).hideCurrentSnackBar),
           ),
         );
@@ -209,7 +209,6 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
   void showNoMailAppsDialog(BuildContext context) {
@@ -217,11 +216,12 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Open Mail App"),
-          content: Text("No mail apps installed"),
+          title: const Text("Aucune application trouvée"),
+          content: const Text(
+              "L'ouverture d'une application de mail à échouée, installez une application de mail puis réessayer"),
           actions: <Widget>[
             TextButton(
-              child: Text("OK"),
+              child: const Text("Compris"),
               onPressed: () {
                 Navigator.pop(context);
               },
