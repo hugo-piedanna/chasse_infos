@@ -1,0 +1,15 @@
+[
+    {
+        "id": 0,
+        "city": "Martigues",
+        "CP": 13400,
+        "country": "France",
+        "address": "20 rue NOM",
+        "hunter": 0,
+        "adminID": "09342",
+        "season": {
+          "date-open": "16/07/2022",
+          "date-close": "16/11/2022"
+        }
+    }
+]
