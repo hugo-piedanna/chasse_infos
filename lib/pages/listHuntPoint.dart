@@ -16,39 +16,93 @@ class listHuntingPoint extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(children: [
-            SizedBox(
-                height: 60,
-                child: FutureBuilder(
-                  future: ReadJSONData(),
-                  builder: (context, data) {
-                    if (data.hasError) {
-                      return Center(child: Text("${data.error}"));
-                    } else if (data.hasData) {
-                      var items = data.data as List<pointDataModel>;
-                      return ListView.builder(
-                          itemCount: items == null ? 0 : items.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              elevation: 5,
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 6),
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(items[index].city.toString())
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ))
+            const Text(
+              'Points chasse',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xfffaf3dd)),
+            ),
+            const SizedBox(height: 20),
+            FutureBuilder(
+              future: ReadJSONData(),
+              builder: (context, data) {
+                if (data.hasError) {
+                  return Center(child: Text("${data.error}"));
+                } else if (data.hasData) {
+                  var items = data.data as List<pointDataModel>;
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: items == null ? 0 : items.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: const Color(0xff8fc0a9),
+                          elevation: 5,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    child: Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, right: 8),
+                                            child: Text(
+                                              items[index].city.toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 25,
+                                                  color: Color(0xfffaf3dd),
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, right: 8),
+                                            child: Text(
+                                              items[index].country.toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  color: Color(0xfffaf3dd)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 8, right: 8),
+                                          child: Icon(
+                                            Icons.arrow_right_alt,
+                                            size: 30,
+                                            color: Color(0xfffaf3dd),
+                                          )),
+                                    ],
+                                  ),
+                                ))
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            )
           ]),
         ));
   }
