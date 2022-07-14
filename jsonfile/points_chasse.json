@@ -1,15 +1,17 @@
 [
     {
         "id": 0,
-        "city": "Martigues",
-        "CP": 13400,
+        "name": "Chasse de ribières",
+        "city": "Puyricard",
+        "CP": 13540,
         "country": "France",
-        "address": "20 rue NOM",
+        "address": "950 Chemin de Maliverny",
         "hunter": 0,
-        "adminID": "09342",
+        "adminID": "n/a",
         "season": {
           "date-open": "16/07/2022",
-          "date-close": "16/11/2022"
+          "date-close": "16/11/2022",
+          "time": "10H00-12H00 et 15H00-17H00"
         }
     }
 ]

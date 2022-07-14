@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:chasse_infos/pages/huntPoint.dart';
+import 'package:chasse_infos/pages/profil.dart';
 import 'package:chasse_infos/pointDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
@@ -35,65 +37,76 @@ class listHuntingPoint extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: items == null ? 0 : items.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          color: const Color(0xff8fc0a9),
-                          elevation: 5,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    child: Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8, right: 8),
-                                            child: Text(
-                                              items[index].city.toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 25,
-                                                  color: Color(0xfffaf3dd),
-                                                  fontWeight: FontWeight.bold),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      huntPoint(items[index])),
+                            );
+                          },
+                          child: Card(
+                            color: const Color(0xff8fc0a9),
+                            elevation: 5,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8, right: 8),
+                                              child: Text(
+                                                items[index].name.toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 25,
+                                                    color: Color(0xfffaf3dd),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8, right: 8),
-                                            child: Text(
-                                              items[index].country.toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Color(0xfffaf3dd)),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8, right: 8),
+                                              child: Text(
+                                                "${items[index].city} - ${items[index].country}",
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    color: Color(0xfffaf3dd)),
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 8, right: 8),
-                                          child: Icon(
-                                            Icons.arrow_right_alt,
-                                            size: 30,
-                                            color: Color(0xfffaf3dd),
-                                          )),
-                                    ],
-                                  ),
-                                ))
-                              ],
+                                          ],
+                                        ),
+                                        const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 8, right: 8),
+                                            child: Icon(
+                                              Icons.arrow_right_alt,
+                                              size: 30,
+                                              color: Color(0xfffaf3dd),
+                                            )),
+                                      ],
+                                    ),
+                                  ))
+                                ],
+                              ),
                             ),
                           ),
                         );
