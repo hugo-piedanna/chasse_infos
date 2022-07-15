@@ -183,12 +183,30 @@ class _huntPoint extends State<huntPoint> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              const Text(
-                                "Aucun administrateur",
-                                style: TextStyle(
+                              Text(
+                                items.adminID.toString() == "n/a"
+                                    ? "Aucun administrateur"
+                                    : items.adminID.toString(),
+                                style: const TextStyle(
                                     fontSize: 20, color: Color(0xfffaf3dd)),
                               ),
                             ]),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(300, 100),
+                          onPrimary: HexColor('#faf3dd'),
+                          primary: HexColor('#8fc0a9'),
+                        ),
+                        child: const Text(
+                          "S'abonner",
+                          style: TextStyle(
+                              fontSize: 35, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),

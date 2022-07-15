@@ -23,7 +23,7 @@ class pointDataModel {
     country = json['country'];
     address = json['address'];
     hunter = json['hunter'];
-    adminID = json['dminID'];
+    adminID = json['adminID'];
     Map season = json['season'];
     dateOpen = season['date-open'];
     dateClose = season['date-close'];
