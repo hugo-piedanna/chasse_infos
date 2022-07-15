@@ -1,3 +1,6 @@
+import 'package:chasse_infos/index.dart';
+import 'package:chasse_infos/pages/login.dart';
+import 'package:chasse_infos/pages/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -32,7 +35,10 @@ class _profilPage extends State<profil> {
                 FloatingActionButtonLocation.miniStartTop,
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  this.context,
+                  MaterialPageRoute(builder: (context) => const acceuil()),
+                );
               },
               backgroundColor: const Color(0xff8fc0a9),
               foregroundColor: const Color(0xfffaf3dd),
@@ -72,7 +78,13 @@ class _profilPage extends State<profil> {
                     child: Column(
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              this.context,
+                              MaterialPageRoute(
+                                  builder: (context) => const login()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(300, 100),
                             onPrimary: HexColor('#faf3dd'),
@@ -86,7 +98,13 @@ class _profilPage extends State<profil> {
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              this.context,
+                              MaterialPageRoute(
+                                  builder: (context) => const registration()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(300, 100),
                             onPrimary: HexColor('#faf3dd'),

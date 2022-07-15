@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'pages/login.dart';
+import 'pages/choice.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

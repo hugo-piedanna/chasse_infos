@@ -1,29 +1,71 @@
+import 'package:chasse_infos/pages/login.dart';
 import 'package:chasse_infos/pages/profil.dart';
-import 'package:chasse_infos/pages/registration.dart';
 import 'package:flutter/material.dart';
 
-class login extends StatefulWidget {
-  const login({Key? key}) : super(key: key);
+class registration extends StatefulWidget {
+  const registration({Key? key}) : super(key: key);
 
   @override
-  _loginState createState() => _loginState();
+  _registrationState createState() => _registrationState();
 }
 
-class _loginState extends State<login> {
+class _registrationState extends State<registration> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final nameEditingController = new TextEditingController();
+  final lastnameEditingController = new TextEditingController();
+  final emailEditingController = new TextEditingController();
+  final ageEditingController = new TextEditingController();
+  final passwordEditingController = new TextEditingController();
+  final confirmPasswordEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final nameField = TextFormField(
+      autofocus: false,
+      controller: nameEditingController,
+      keyboardType: TextInputType.name,
+      //validator: () {},
+      onSaved: (value) {
+        nameEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.person),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Prénom",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
+    final lastnameField = TextFormField(
+      autofocus: false,
+      controller: lastnameEditingController,
+      keyboardType: TextInputType.name,
+      //validator: () {},
+      onSaved: (value) {
+        lastnameEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.person),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Nom",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
     final emailField = TextFormField(
       autofocus: false,
-      controller: emailController,
+      controller: emailEditingController,
       keyboardType: TextInputType.emailAddress,
       //validator: () {},
       onSaved: (value) {
-        emailController.text = value!;
+        emailEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -36,13 +78,51 @@ class _loginState extends State<login> {
       ),
     );
 
+    final ageField = TextFormField(
+      autofocus: false,
+      controller: ageEditingController,
+      keyboardType: TextInputType.datetime,
+      //validator: () {},
+      onSaved: (value) {
+        ageEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.cake),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Date de naissance",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
     final passwordField = TextFormField(
       autofocus: false,
-      controller: passwordController,
+      controller: passwordEditingController,
       obscureText: true,
       //validator: () {},
       onSaved: (value) {
-        passwordController.text = value!;
+        passwordEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.lock),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Mot de passe",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
+    final confirmpasswordField = TextFormField(
+      autofocus: false,
+      controller: confirmPasswordEditingController,
+      obscureText: true,
+      //validator: () {},
+      onSaved: (value) {
+        confirmPasswordEditingController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
@@ -55,7 +135,7 @@ class _loginState extends State<login> {
       ),
     );
 
-    final loginBtn = Material(
+    final signUpBtn = Material(
       elevation: 5,
       color: const Color(0xff8fc0a9),
       borderRadius: BorderRadius.circular(30),
@@ -64,7 +144,7 @@ class _loginState extends State<login> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {},
         child: const Text(
-          "Se connecter",
+          "S'enregistrer",
           style: TextStyle(
             color: Color(0xfffaf3dd),
             fontSize: 20,
@@ -116,33 +196,46 @@ class _loginState extends State<login> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 200,
+                              height: 150,
                               child: Image.asset(
                                 'images/icon-foret.png',
                                 fit: BoxFit.contain,
                               ),
                             ),
                             const SizedBox(height: 45),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(child: nameField),
+                                Container(width: 10, color: Colors.transparent),
+                                Expanded(child: lastnameField),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
                             emailField,
-                            const SizedBox(height: 25),
+                            const SizedBox(height: 20),
+                            ageField,
+                            const SizedBox(height: 20),
                             passwordField,
-                            const SizedBox(height: 35),
-                            loginBtn,
+                            const SizedBox(height: 20),
+                            confirmpasswordField,
+                            const SizedBox(height: 20),
+                            signUpBtn,
                             const SizedBox(height: 15),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("Vous n'avez pas de compte? "),
+                                const Text("Vous avez déjà un compte? "),
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: ((context) =>
-                                                const registration())));
+                                                const login())));
                                   },
                                   child: const Text(
-                                    "S'enregistrer",
+                                    "Connectez-vous",
                                     style: TextStyle(
                                       color: Color(0xfffaf3dd),
                                       fontWeight: FontWeight.w600,
