@@ -98,17 +98,20 @@ class _profilPage extends State<profil> {
                                 fontSize: 30, color: Color(0xfffaf3dd)),
                           ),
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Center(
+                          child: Text(
+                            "Certaines fonctionnalités nécessitent d'avoir un compte et de se connecter",
+                            style: TextStyle(
+                                fontSize: 15, color: Color(0xfffaf3dd)),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  Container(
-                    width: 350,
-                    child: const Text(
-                      "Il n'est pas obligatoire d'avoir un compte pour utiliser notre application, cependant, en vous connectant vous pourrez profiter pleinement des fonctionnalitées disponible",
-                      style: TextStyle(fontSize: 20, color: Color(0xfffaf3dd)),
-                    ),
-                  )
                 ],
               )),
             ),
