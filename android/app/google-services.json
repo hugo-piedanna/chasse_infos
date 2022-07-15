@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "86873906490",
+    "project_id": "chasse-infos",
+    "storage_bucket": "chasse-infos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86873906490:android:faa0b939de1f96bf6ec403",
+        "android_client_info": {
+          "package_name": "com.example.chasse_infos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86873906490-595cokblsotig7p59ka307stdks8ngnf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chasse_infos",
+            "certificate_hash": "28ab1411ca92cb765cc0a4fc601d626179a8115e"
+          }
+        },
+        {
+          "client_id": "86873906490-favls75lsk14rvm1n5eu09qvuod20pg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8LlCUYQmJfoAkyG80n0o8cCi6bqVuYt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86873906490-favls75lsk14rvm1n5eu09qvuod20pg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -41,6 +41,10 @@ dependencies:
   geolocator: ^9.0.1
   open_mail_app: ^0.4.5
   weather: ^2.0.1
+  cloud_firestore: ^3.3.0
+  firebase_core: ^1.19.2
+  fluttertoast: ^8.0.9
+  firebase_auth: ^3.4.2
 
 dev_dependencies:
   flutter_test:
