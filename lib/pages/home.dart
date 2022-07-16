@@ -210,12 +210,21 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Aucune application trouvée"),
+          backgroundColor: HexColor('#68B0AB'),
+          title: const Text(
+            "Aucune application trouvée",
+            style: TextStyle(
+                color: Color(0xfffaf3dd),
+                fontSize: 22,
+                fontWeight: FontWeight.bold),
+          ),
           content: const Text(
-              "L'ouverture d'une application de mail à échouée, installez une application de mail puis réessayer"),
+              "L'ouverture d'une application de mail à échouée, installez une application de mail puis réessayer",
+              style: TextStyle(color: Color(0xfffaf3dd), fontSize: 17)),
           actions: <Widget>[
             TextButton(
-              child: const Text("Compris"),
+              child: const Text("Compris",
+                  style: TextStyle(color: Color(0xffC8D5B9))),
               onPressed: () {
                 Navigator.pop(context);
               },

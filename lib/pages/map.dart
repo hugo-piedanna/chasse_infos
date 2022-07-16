@@ -60,7 +60,7 @@ class _mapView extends State<map> with AutomaticKeepAliveClientMixin<map> {
 
   Widget _showNoLog(BuildContext context) {
     return new AlertDialog(
-      backgroundColor: Color(0xff8fc0a9),
+      backgroundColor: HexColor('#68B0AB'),
       title: const Text("Vous n'êtes pas connecté",
           style: TextStyle(
               color: Color(0xfffaf3dd),
@@ -86,7 +86,7 @@ class _mapView extends State<map> with AutomaticKeepAliveClientMixin<map> {
           textColor: Theme.of(context).primaryColor,
           child: Text(
             "Compris",
-            style: TextStyle(color: HexColor('#C8D5B9')),
+            style: TextStyle(color: Color(0xffC8D5B9)),
           ),
         ),
       ],
