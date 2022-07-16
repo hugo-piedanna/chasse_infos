@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 
@@ -58,15 +59,8 @@ class _homePage extends State<home> with AutomaticKeepAliveClientMixin<home> {
         digitalSeconds = "00";
         digitalMinute = "00";
         digitalHours = "00";
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Temps enregistré'),
-            backgroundColor: const Color(0xff4a7c59),
-            action: SnackBarAction(
-                label: 'Compris',
-                onPressed: Scaffold.of(context).hideCurrentSnackBar),
-          ),
-        );
+        Fluttertoast.showToast(
+            msg: "Temps enregistré !", toastLength: Toast.LENGTH_LONG);
       }
       visibleTimer = !visibleTimer;
     });

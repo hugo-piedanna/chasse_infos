@@ -1,7 +1,9 @@
 import 'package:chasse_infos/index.dart';
 import 'package:chasse_infos/pages/login.dart';
 import 'package:chasse_infos/pages/registration.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class profil extends StatefulWidget {
@@ -13,6 +15,8 @@ class profil extends StatefulWidget {
 }
 
 class _profilPage extends State<profil> {
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,67 +73,84 @@ class _profilPage extends State<profil> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  Container(
-                    width: 350,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        color: HexColor('#68B0AB'),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              this.context,
-                              MaterialPageRoute(
-                                  builder: (context) => const login()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(300, 100),
-                            onPrimary: HexColor('#faf3dd'),
-                            primary: HexColor('#8fc0a9'),
-                          ),
-                          child: const Text(
-                            "Se connecter",
-                            style: TextStyle(
-                                fontSize: 30, color: Color(0xfffaf3dd)),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              this.context,
-                              MaterialPageRoute(
-                                  builder: (context) => const registration()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(300, 100),
-                            onPrimary: HexColor('#faf3dd'),
-                            primary: HexColor('#8fc0a9'),
-                          ),
-                          child: const Text(
-                            "S'enregistrer",
-                            style: TextStyle(
-                                fontSize: 30, color: Color(0xfffaf3dd)),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Center(
-                          child: Text(
-                            "Certaines fonctionnalités nécessitent d'avoir un compte et de se connecter",
-                            style: TextStyle(
-                                fontSize: 15, color: Color(0xfffaf3dd)),
-                            textAlign: TextAlign.center,
+                  (user == null)
+                      ? Container(
+                          width: 350,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: HexColor('#68B0AB'),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    this.context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const login()),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(300, 100),
+                                  onPrimary: HexColor('#faf3dd'),
+                                  primary: HexColor('#8fc0a9'),
+                                ),
+                                child: const Text(
+                                  "Se connecter",
+                                  style: TextStyle(
+                                      fontSize: 30, color: Color(0xfffaf3dd)),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    this.context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const registration()),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(300, 100),
+                                  onPrimary: HexColor('#faf3dd'),
+                                  primary: HexColor('#8fc0a9'),
+                                ),
+                                child: const Text(
+                                  "S'enregistrer",
+                                  style: TextStyle(
+                                      fontSize: 30, color: Color(0xfffaf3dd)),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Center(
+                                child: Text(
+                                  "Certaines fonctionnalités nécessitent d'avoir un compte et de se connecter",
+                                  style: TextStyle(
+                                      fontSize: 15, color: Color(0xfffaf3dd)),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
                           ),
                         )
-                      ],
-                    ),
-                  ),
+                      : ElevatedButton(
+                          onPressed: () {
+                            logout(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(300, 100),
+                            onPrimary: HexColor('#faf3dd'),
+                            primary: HexColor('#8fc0a9'),
+                          ),
+                          child: const Text(
+                            "Se déconnecter",
+                            style: TextStyle(
+                                fontSize: 30, color: Color(0xfffaf3dd)),
+                          ),
+                        ),
                 ],
               )),
             ),
@@ -137,5 +158,12 @@ class _profilPage extends State<profil> {
         ),
       )),
     );
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Fluttertoast.showToast(msg: "Deconnecter avec succès !");
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => profil()));
   }
 }

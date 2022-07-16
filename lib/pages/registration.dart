@@ -1,6 +1,10 @@
+import 'package:chasse_infos/models/userModel.dart';
 import 'package:chasse_infos/pages/login.dart';
 import 'package:chasse_infos/pages/profil.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class registration extends StatefulWidget {
   const registration({Key? key}) : super(key: key);
@@ -10,6 +14,8 @@ class registration extends StatefulWidget {
 }
 
 class _registrationState extends State<registration> {
+  final _auth = FirebaseAuth.instance;
+
   final _formKey = GlobalKey<FormState>();
 
   final nameEditingController = new TextEditingController();
@@ -25,7 +31,18 @@ class _registrationState extends State<registration> {
       autofocus: false,
       controller: nameEditingController,
       keyboardType: TextInputType.name,
-      //validator: () {},
+      validator: (value) {
+        RegExp regExp = new RegExp(r'^.{3,}$');
+        if (value!.isEmpty) {
+          return ("Vous devez entrer votre prénom !");
+        }
+
+        if (!regExp.hasMatch(value)) {
+          return ("Prénom invalide ! (3 caractères minimum)");
+        }
+
+        return null;
+      },
       onSaved: (value) {
         nameEditingController.text = value!;
       },
@@ -44,7 +61,13 @@ class _registrationState extends State<registration> {
       autofocus: false,
       controller: lastnameEditingController,
       keyboardType: TextInputType.name,
-      //validator: () {},
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Vous devez entrer votre nom !");
+        }
+
+        return null;
+      },
       onSaved: (value) {
         lastnameEditingController.text = value!;
       },
@@ -63,7 +86,16 @@ class _registrationState extends State<registration> {
       autofocus: false,
       controller: emailEditingController,
       keyboardType: TextInputType.emailAddress,
-      //validator: () {},
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Vous devez entrer votre email !");
+        }
+
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          return ("Vous devez entrer un email valide !");
+        }
+        return null;
+      },
       onSaved: (value) {
         emailEditingController.text = value!;
       },
@@ -101,7 +133,16 @@ class _registrationState extends State<registration> {
       autofocus: false,
       controller: passwordEditingController,
       obscureText: true,
-      //validator: () {},
+      validator: (value) {
+        RegExp regExp = new RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return ("Vous devez entrer votre mot de passe !");
+        }
+
+        if (!regExp.hasMatch(value)) {
+          return ("Mot de passe invalide ! (6 caractères minimum)");
+        }
+      },
       onSaved: (value) {
         passwordEditingController.text = value!;
       },
@@ -120,7 +161,13 @@ class _registrationState extends State<registration> {
       autofocus: false,
       controller: confirmPasswordEditingController,
       obscureText: true,
-      //validator: () {},
+      validator: (value) {
+        if (confirmPasswordEditingController.text.length > 6 &&
+            passwordEditingController.text != value) {
+          return "Le mot de passe ne correspond pas";
+        }
+        return null;
+      },
       onSaved: (value) {
         confirmPasswordEditingController.text = value!;
       },
@@ -128,7 +175,7 @@ class _registrationState extends State<registration> {
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.lock),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Mot de passe",
+        hintText: "Confirmer le mot de passe",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -142,7 +189,9 @@ class _registrationState extends State<registration> {
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {},
+        onPressed: () {
+          signUp(emailEditingController.text, passwordEditingController.text);
+        },
         child: const Text(
           "S'enregistrer",
           style: TextStyle(
@@ -257,5 +306,40 @@ class _registrationState extends State<registration> {
         ),
       ),
     );
+  }
+
+  void signUp(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailsToFirestore()})
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message, toastLength: Toast.LENGTH_LONG);
+      });
+    }
+  }
+
+  postDetailsToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+    User? user = _auth.currentUser;
+
+    userModel userMod = userModel();
+    userMod.email = user!.email;
+    userMod.uid = user.uid;
+    userMod.name = nameEditingController.text;
+    userMod.lastName = lastnameEditingController.text;
+    userMod.birthday = ageEditingController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userMod.toMap());
+
+    Fluttertoast.showToast(
+        msg: "Compte créé avec succès !", toastLength: Toast.LENGTH_LONG);
+
+    Navigator.pushAndRemoveUntil((context),
+        MaterialPageRoute(builder: (context) => profil()), (route) => false);
   }
 }

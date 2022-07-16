@@ -1,23 +1,20 @@
+import 'package:chasse_infos/pages/login.dart';
 import 'package:chasse_infos/pages/profil.dart';
-import 'package:chasse_infos/pages/registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'changePassword.dart';
-
-class login extends StatefulWidget {
-  const login({Key? key}) : super(key: key);
+class changePassword extends StatefulWidget {
+  const changePassword({Key? key}) : super(key: key);
 
   @override
-  _loginState createState() => _loginState();
+  _changePasswordState createState() => _changePasswordState();
 }
 
-class _loginState extends State<login> {
+class _changePasswordState extends State<changePassword> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
 
   final _auth = FirebaseAuth.instance;
 
@@ -51,35 +48,7 @@ class _loginState extends State<login> {
       ),
     );
 
-    final passwordField = TextFormField(
-      autofocus: false,
-      controller: passwordController,
-      obscureText: true,
-      validator: (value) {
-        RegExp regExp = new RegExp(r'^.{6,}$');
-        if (value!.isEmpty) {
-          return ("Vous devez entrer votre mot de passe !");
-        }
-
-        if (!regExp.hasMatch(value)) {
-          return ("Mot de passe invalide ! (6 caractères minimum)");
-        }
-      },
-      onSaved: (value) {
-        passwordController.text = value!;
-      },
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.lock),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Mot de passe",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-
-    final loginBtn = Material(
+    final sendBtn = Material(
       elevation: 5,
       color: const Color(0xff8fc0a9),
       borderRadius: BorderRadius.circular(30),
@@ -87,10 +56,10 @@ class _loginState extends State<login> {
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-          signin(emailController.text, passwordController.text);
+          changePassword(emailController.text);
         },
         child: const Text(
-          "Se connecter",
+          "Envoyer la demande",
           style: TextStyle(
             color: Color(0xfffaf3dd),
             fontSize: 20,
@@ -147,60 +116,17 @@ class _loginState extends State<login> {
                               fit: BoxFit.contain,
                             ),
                           ),
-                          const SizedBox(height: 45),
-                          emailField,
-                          const SizedBox(height: 25),
-                          passwordField,
-                          const SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Mot de passe oublié ? "),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const changePassword())));
-                                },
-                                child: const Text(
-                                  "Le changer",
-                                  style: TextStyle(
-                                    color: Color(0xfffaf3dd),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              )
-                            ],
+                          const SizedBox(height: 20),
+                          const Text(
+                            "Vous recevrez un email pour changer votre mot de passe. Il vous suffit de suivre le lien dans l'email. Si vous n'avez pas reçu d'email, vérifiez vos spam !",
+                            style: TextStyle(
+                                fontSize: 17, color: Color(0xfffaf3dd)),
+                            textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 35),
-                          loginBtn,
-                          const SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Vous n'avez pas de compte? "),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const registration())));
-                                },
-                                child: const Text(
-                                  "S'enregistrer",
-                                  style: TextStyle(
-                                    color: Color(0xfffaf3dd),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
+                          const SizedBox(height: 40),
+                          emailField,
+                          const SizedBox(height: 30),
+                          sendBtn,
                         ],
                       ),
                     ),
@@ -214,13 +140,14 @@ class _loginState extends State<login> {
     );
   }
 
-  void signin(String email, String password) async {
+  void changePassword(String email) async {
     if (_formKey.currentState!.validate()) {
+      print(email);
       await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
+          .sendPasswordResetEmail(email: email)
           .then((uid) => {
                 Fluttertoast.showToast(
-                    msg: "Connecter avec succès",
+                    msg: "Un mail vous a été envoyer. Vérifier vos spam !",
                     toastLength: Toast.LENGTH_LONG),
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: ((context) => const profil())))
