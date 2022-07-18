@@ -91,7 +91,7 @@ class _profilPage extends State<profil> {
                       style: TextStyle(fontSize: 30, color: Color(0xfffaf3dd)),
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 30),
                   (user == null)
                       ? Container(
                           width: 350,
@@ -194,7 +194,7 @@ class _profilPage extends State<profil> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: 20),
                             Container(
                               width: 350,
                               padding: const EdgeInsets.all(20),
@@ -223,7 +223,7 @@ class _profilPage extends State<profil> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: 30),
                             ElevatedButton(
                               onPressed: () {
                                 logout(context);
