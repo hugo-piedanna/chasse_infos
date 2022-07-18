@@ -1,10 +1,13 @@
 import 'package:chasse_infos/index.dart';
+import 'package:chasse_infos/models/userModel.dart';
 import 'package:chasse_infos/pages/login.dart';
 import 'package:chasse_infos/pages/registration.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:open_mail_app/open_mail_app.dart';
 
 class profil extends StatefulWidget {
   const profil({Key? key}) : super(key: key);
@@ -16,6 +19,22 @@ class profil extends StatefulWidget {
 
 class _profilPage extends State<profil> {
   User? user = FirebaseAuth.instance.currentUser;
+  userModel userMod = userModel();
+
+  @override
+  void initState() {
+    super.initState();
+    if (user != null) {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user!.uid)
+          .get()
+          .then((value) {
+        userMod = userModel.fromMap(value.data());
+        setState(() {});
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +68,8 @@ class _profilPage extends State<profil> {
               child: const Icon(Icons.arrow_back),
             ),
             body: SingleChildScrollView(
-              child: Center(
-                  child: Column(
+                child: Center(
+              child: Column(
                 children: [
                   const Text(
                     "Profil",
@@ -68,7 +87,7 @@ class _profilPage extends State<profil> {
                       primary: HexColor('#8fc0a9'),
                     ),
                     child: const Text(
-                      "Paramètre",
+                      "Paramètres",
                       style: TextStyle(fontSize: 30, color: Color(0xfffaf3dd)),
                     ),
                   ),
@@ -136,24 +155,95 @@ class _profilPage extends State<profil> {
                             ],
                           ),
                         )
-                      : ElevatedButton(
-                          onPressed: () {
-                            logout(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(300, 100),
-                            onPrimary: HexColor('#faf3dd'),
-                            primary: HexColor('#8fc0a9'),
-                          ),
-                          child: const Text(
-                            "Se déconnecter",
-                            style: TextStyle(
-                                fontSize: 30, color: Color(0xfffaf3dd)),
-                          ),
+                      : Column(
+                          children: [
+                            Container(
+                              width: 350,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  color: HexColor('#68B0AB'),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Column(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size(300, 100),
+                                      onPrimary: HexColor('#faf3dd'),
+                                      primary: HexColor('#8fc0a9'),
+                                    ),
+                                    child: const Text(
+                                      "Avertir !",
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          color: Color(0xfffaf3dd)),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Center(
+                                    child: Text(
+                                      "Signalez la présence de promeneurs pour que vos collègues soient plus attention",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Color(0xfffaf3dd)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+                            Container(
+                              width: 350,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  color: HexColor('#68B0AB'),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Amis",
+                                    style: TextStyle(
+                                        color: Color(0xfffaf3dd),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Vous pourrer prochainement ajouter des amis pour partager votre position ou vos performences avec eux !",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color(0xfffaf3dd),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+                            ElevatedButton(
+                              onPressed: () {
+                                logout(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(300, 100),
+                                onPrimary: HexColor('#faf3dd'),
+                                primary: HexColor('#8fc0a9'),
+                              ),
+                              child: const Text(
+                                "Se déconnecter",
+                                style: TextStyle(
+                                    fontSize: 30, color: Color(0xfffaf3dd)),
+                              ),
+                            ),
+                          ],
                         ),
                 ],
-              )),
-            ),
+              ),
+            )),
           ),
         ),
       )),
