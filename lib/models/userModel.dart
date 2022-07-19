@@ -4,8 +4,15 @@ class userModel {
   String? lastName;
   String? email;
   String? birthday;
+  List? huntPoints;
 
-  userModel({this.uid, this.name, this.lastName, this.email, this.birthday});
+  userModel(
+      {this.uid,
+      this.name,
+      this.lastName,
+      this.email,
+      this.birthday,
+      this.huntPoints});
 
   factory userModel.fromMap(map) {
     return userModel(
@@ -13,7 +20,8 @@ class userModel {
         name: map['name'],
         lastName: map['lastName'],
         email: map['email'],
-        birthday: map['birthday']);
+        birthday: map['birthday'],
+        huntPoints: map['huntPoints']);
   }
 
   Map<String, dynamic> toMap() {
@@ -23,6 +31,7 @@ class userModel {
       'lastName': lastName,
       'email': email,
       'birthday': birthday,
+      'huntPoints': huntPoints
     };
   }
 }

@@ -1,7 +1,11 @@
 import 'package:chasse_infos/models/pointDataModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../models/userModel.dart';
 
 class huntPoint extends StatefulWidget {
   var items;
@@ -15,9 +19,28 @@ class huntPoint extends StatefulWidget {
 class _huntPoint extends State<huntPoint> {
   var items;
   _huntPoint(this.items);
+  User? user = FirebaseAuth.instance.currentUser;
+  userModel userMod = userModel();
+
+  @override
+  void initState() {
+    super.initState();
+    if (user != null) {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user!.uid)
+          .get()
+          .then((value) {
+        userMod = userModel.fromMap(value.data());
+        setState(() {});
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    List? list = userMod.huntPoints;
+    bool checkSub = list!.contains(items.id);
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -198,15 +221,17 @@ class _huntPoint extends State<huntPoint> {
                         height: 30,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          subscribe();
+                        },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(300, 100),
                           onPrimary: HexColor('#faf3dd'),
                           primary: HexColor('#8fc0a9'),
                         ),
-                        child: const Text(
-                          "S'abonner",
-                          style: TextStyle(
+                        child: Text(
+                          (checkSub) ? "Se désabonner" : "S'abonner",
+                          style: const TextStyle(
                               fontSize: 35, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -219,5 +244,36 @@ class _huntPoint extends State<huntPoint> {
         ),
       ),
     );
+  }
+
+  Future<void> subscribe() async {
+    if (user != null) {
+      List? list = userMod.huntPoints;
+      if (list!.contains(items.id)) {
+        list.remove(items.id);
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(user!.uid)
+            .update({"huntPoints": list}).then((result) {
+          Fluttertoast.showToast(
+              msg: "Abonnement annulé", toastLength: Toast.LENGTH_LONG);
+        });
+      } else {
+        list.add(items.id);
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(user!.uid)
+            .update({"huntPoints": list}).then((result) {
+          Fluttertoast.showToast(
+              msg: "Vous êtes maintenant abonné",
+              toastLength: Toast.LENGTH_LONG);
+        });
+      }
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => huntPoint(items)));
+    } else {
+      Fluttertoast.showToast(
+          msg: "Vous n'êtes pas connecté", toastLength: Toast.LENGTH_LONG);
+    }
   }
 }

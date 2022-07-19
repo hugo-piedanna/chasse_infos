@@ -252,7 +252,8 @@ class _profilPage extends State<profil> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Fluttertoast.showToast(msg: "Deconnecter avec succès !");
+    Fluttertoast.showToast(
+        msg: "Deconnecter avec succès !", toastLength: Toast.LENGTH_LONG);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => profil()));
   }
