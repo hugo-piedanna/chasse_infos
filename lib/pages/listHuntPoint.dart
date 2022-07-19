@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:chasse_infos/pages/huntPoint.dart';
 import 'package:chasse_infos/pages/profil.dart';
-import 'package:chasse_infos/pointDataModel.dart';
+import 'package:chasse_infos/models/pointDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 

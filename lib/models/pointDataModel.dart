@@ -11,9 +11,18 @@ class pointDataModel {
   String? dateClose;
   String? time;
 
-  pointDataModel(this.id, this.name, this.city, this.cp, this.country,
-      this.address, this.hunter, this.adminID,
-      {this.dateOpen, this.dateClose, this.time});
+  pointDataModel(
+      {this.id,
+      this.name,
+      this.city,
+      this.cp,
+      this.country,
+      this.address,
+      this.hunter,
+      this.adminID,
+      this.dateOpen,
+      this.dateClose,
+      this.time});
 
   pointDataModel.fromJSON(Map<String, dynamic> json) {
     id = json['id'];
