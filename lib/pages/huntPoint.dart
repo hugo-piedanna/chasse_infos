@@ -21,17 +21,24 @@ class _huntPoint extends State<huntPoint> {
   _huntPoint(this.items);
   User? user = FirebaseAuth.instance.currentUser;
   userModel userMod = userModel();
+  bool checkSub = false;
 
   @override
   void initState() {
     super.initState();
+    _loadUserData();
+  }
+
+  void _loadUserData() async {
     if (user != null) {
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection("users")
           .doc(user!.uid)
           .get()
           .then((value) {
         userMod = userModel.fromMap(value.data());
+        List? list = userMod.huntPoints;
+        checkSub = list!.contains(items.id);
         setState(() {});
       });
     }
@@ -39,8 +46,6 @@ class _huntPoint extends State<huntPoint> {
 
   @override
   Widget build(BuildContext context) {
-    List? list = userMod.huntPoints;
-    bool checkSub = list!.contains(items.id);
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -269,8 +274,9 @@ class _huntPoint extends State<huntPoint> {
               toastLength: Toast.LENGTH_LONG);
         });
       }
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => huntPoint(items)));
+      setState(() {
+        checkSub = list.contains(items.id);
+      });
     } else {
       Fluttertoast.showToast(
           msg: "Vous n'êtes pas connecté", toastLength: Toast.LENGTH_LONG);
