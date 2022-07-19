@@ -330,6 +330,7 @@ class _registrationState extends State<registration> {
     userMod.name = nameEditingController.text;
     userMod.lastName = lastnameEditingController.text;
     userMod.birthday = ageEditingController.text;
+    userMod.huntPoints = <int>[];
 
     await firebaseFirestore
         .collection("users")
